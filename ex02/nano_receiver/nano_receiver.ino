@@ -3,38 +3,37 @@
 
 int PhotoPin = A0; // select the input pin for the potentiometer
 int TPin = A1;
-int Value = 0;
-float Value_volt = 0;
-int Therm = 0;
-float Therm_volt = 0;
+int photo = 0;
+int therm = 0;
+String outString = "";
 
-char str[5];
+char str[10];
 
 void setup()
 {
-  str[4] = '\0';
   Serial.begin(9600);
   Serial.print("Start");
+  outString.reserve(20);
 }
 
 void loop()
 {
-  Value = analogRead(PhotoPin);
-  Therm = analogRead(TPin);
+  photo = analogRead(PhotoPin);
+  therm = analogRead(TPin);
   
-  itoa(Value, str,10);
- // Serial.println(Value);
- // Serial.println(str);
- //Serial.print(*(str+1));
-/*int i;
- while(str[i] != '\0')
+  outString = String(itoa(photo, str,10)) +'_'+ String(itoa(therm, str,10)) + '\n';
+  const char* str = outString.c_str();
+  int i = 0;
+ /*while(*str != '\0')
  {
-  Serial.print(str);
-  str++;
- }*/
+ // Serial.print(str[i]);
+    str++;;
+ }
+ *str = '\n';*/
+ //Serial.print(str[i]);
  //Serial.print('\n');
  Serial.write(str);
-
+delay(200);
  
   
   //Serial.println(Therm_volt);
